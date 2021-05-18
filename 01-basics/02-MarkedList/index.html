@@ -12,14 +12,10 @@
 <body>
 
 <div id="app">
-  <input type="text" />
+  <input type="text" v-model="filter.key" />
   <ul>
-    <li>Email</li>
-    <li class="marked">Email</li>
-    <li class="marked">Email</li>
-    <li>Email</li>
-    <li>Email</li>
-    <li>...</li>
+    <li v-for="email in filteredEmailList"
+        :class="{'marked': email.allowFilter}">{{email.value}}</li>
   </ul>
 </div>
 
