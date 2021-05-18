@@ -1,6 +1,6 @@
 import Vue from './vendor/vue.esm.browser.js';
 
-const app = new Vue({
+new Vue({
   data() {
     return {
       counter: 0,
@@ -11,7 +11,5 @@ const app = new Vue({
     handleClick() {
       ++this.counter;
     },
-  }
+  },
 }).$mount('#app');
-
-
