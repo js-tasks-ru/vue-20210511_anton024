@@ -6,7 +6,14 @@
 </head>
 <body>
 
-<!-- Решение -->
+<div id="app">
+  <div id="group" v-for="i in meetupsCount" style="float: left">
+      <input type="radio" :value="i" :id="i" v-model="selectedMeetupId">
+      <label :for="i">{{i}}</label>
+  </div>
+  <br/>
+  <h1>{{selectedMeetupTitle}}</h1>
+</div>
 
 <script type="module" src="script.js"></script>
 </body>
