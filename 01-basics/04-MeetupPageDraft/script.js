@@ -4,7 +4,6 @@ import Vue from './vendor/vue.esm.browser.js';
 const API_URL = 'https://course-vue.javascript.ru/api';
 
 const fetchMeetup = (id) => fetch(`${API_URL}/meetups/${id}`).then((res) => res.json());
-const checkUrl = (url) => fetch(url).then((res) => res.status);
 
 /** ID митапа для примера; используйте его при получении митапа */
 const MEETUP_ID = 6;
@@ -51,7 +50,6 @@ new Vue({
   data() {
     return {
       rawMeetup: null,
-      meetupImageUrl: null,
     };
   },
 
@@ -65,7 +63,11 @@ new Vue({
         item.title = this.checkAgendaItemTitle(item.title, item.type);
         item.icon = this.getAgendaItemIcon(item.type);
       });
-      return { ...tmpMeetup, cover: this.meetupImageUrl, coverStyle: { '--bg-url': this.meetupImageUrl } };
+      return {
+        ...tmpMeetup,
+        cover: tmpMeetup.imageId && { '--bg-url': `url(${getImageUrlByImageId(tmpMeetup.imageId)})` },
+        coverStyle: tmpMeetup.imageId && { '--bg-url': `url(${getImageUrlByImageId(tmpMeetup.imageId)})` },
+      };
     },
 
     localizedDate() {
@@ -81,17 +83,9 @@ new Vue({
   },
 
   mounted() {
-    fetchMeetup(MEETUP_ID)
-      .then((meetup) => {
-        this.rawMeetup = meetup;
-        return meetup.id;
-      })
-      .then((meetupId) => {
-        const url = getImageUrlByImageId(meetupId);
-        checkUrl(url).then((status) => {
-          this.meetupImageUrl = status === 200 ? `url(${url})` : ``;
-        });
-      });
+    fetchMeetup(MEETUP_ID).then((meetup) => {
+      this.rawMeetup = meetup;
+    });
   },
 
   methods: {
