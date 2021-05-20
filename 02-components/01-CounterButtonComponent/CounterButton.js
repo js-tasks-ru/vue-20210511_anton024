@@ -9,7 +9,6 @@ export default {
   props: {
     count: {
       type: Number,
-      required: true,
       default: 0,
     },
   },
@@ -27,5 +26,5 @@ export default {
   // Шаблон лучше держать максимально простым, а логику выносить в методы
 
   // Шаблон потребуется отредактировать
-  template: '<button type="button" @click="increment()">Click</button>',
+  template: '<button type="button" @click="increment()">{{count}}</button>',
 };
