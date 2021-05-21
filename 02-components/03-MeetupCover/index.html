@@ -26,7 +26,6 @@
 <script type="module">
   import Vue from './vendor/vue.esm.browser.js';
   import MeetupCover from './MeetupCover.js';
-  import { getImageUrlByImageId } from './data.js';
 
   new Vue({
     el: '#app',
@@ -39,7 +38,7 @@
       return {
         meetupWithImage: {
           title: 'VueConf US',
-          link: getImageUrlByImageId(5),
+          link: 'https://course-vue.javascript.ru/api/images/5',
         },
         meetupWithoutImage: {
           title: 'Demo meetup',
