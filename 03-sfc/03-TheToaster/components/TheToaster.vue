@@ -1,35 +1,42 @@
 <template>
   <div class="toasts">
-    <div class="toast toast_success">
-      <app-icon icon="check-circle" />
-      <span>Success 1</span>
-    </div>
-    <div class="toast toast_success">
-      <app-icon icon="check-circle" />
-      <span>Success 2</span>
-    </div>
-    <!-- ... -->
-    <div class="toast toast_error">
-      <app-icon icon="alert-circle" />
-      <span>Error 1</span>
-    </div>
+    <toast v-for="toast in toasts" :id="toast.id" :key="toast.id" @stale="removeStale($event)">
+      <div class="toast" :class="{ toast_success: toast.success, toast_error: !toast.success }">
+        <app-icon :icon="toast.icon" />
+        <span>{{ toast.message }}</span>
+      </div>
+    </toast>
   </div>
 </template>
 
 <script>
 import AppIcon from './AppIcon';
-
-const DELAY = 5000;
+import Toast from './Toast';
 
 export default {
   name: 'TheToaster',
 
-  components: { AppIcon },
+  components: { AppIcon, Toast },
+
+  data() {
+    return {
+      toasts: [],
+      count: 0,
+    };
+  },
 
   methods: {
-    error(message) {},
+    error(message) {
+      this.toasts.push({ message: message, success: false, icon: 'alert-circle', id: this.count++ });
+    },
 
-    success(message) {},
+    success(message) {
+      this.toasts.push({ message: message, success: true, icon: 'check-circle', id: this.count++ });
+    },
+
+    removeStale(id) {
+      this.toasts = this.toasts.filter((toast) => toast['id'] !== id);
+    },
   },
 };
 </script>
@@ -44,36 +51,6 @@ export default {
   justify-content: flex-end;
   white-space: pre-wrap;
   z-index: 999;
-}
-
-.toast {
-  display: flex;
-  flex: 0 0 auto;
-  flex-direction: row;
-  align-items: center;
-  padding: 16px;
-  background: #ffffff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
-  font-size: 18px;
-  line-height: 28px;
-  width: auto;
-}
-
-.toast + .toast {
-  margin-top: 20px;
-}
-
-.toast > .icon {
-  margin-right: 12px;
-}
-
-.toast.toast_success {
-  color: var(--green);
-}
-
-.toast.toast_error {
-  color: var(--red);
 }
 
 @media all and (min-width: 992px) {
