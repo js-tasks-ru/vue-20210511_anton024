@@ -54,18 +54,21 @@ describe('sfc/TheToaster', () => {
       expect(toasts.map((toast) => toast.text())).toEqual(messages);
     });
 
-    it('TheToaster удалять тост через 5 секунд', async () => {
+    it.only('TheToaster удалять тост через 5 секунд', async () => {
       const wrapper = mount(TheToaster);
 
       wrapper.vm.success('Time_0');
+      await wrapper.vm.$nextTick();
       // Current = 0
 
       jest.advanceTimersByTime(2500);
       wrapper.vm.success('Time_2500');
+      await wrapper.vm.$nextTick();
       // Current = 2500
 
       jest.advanceTimersByTime(1000);
       wrapper.vm.success('Time_3500');
+      await wrapper.vm.$nextTick();
       // Current = 3500
 
       jest.advanceTimersByTime(1600);
