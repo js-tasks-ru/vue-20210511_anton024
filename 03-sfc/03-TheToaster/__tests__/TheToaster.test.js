@@ -54,7 +54,7 @@ describe('sfc/TheToaster', () => {
       expect(toasts.map((toast) => toast.text())).toEqual(messages);
     });
 
-    it.only('TheToaster удалять тост через 5 секунд', async () => {
+    it('TheToaster удалять тост через 5 секунд', async () => {
       const wrapper = mount(TheToaster);
 
       wrapper.vm.success('Time_0');
