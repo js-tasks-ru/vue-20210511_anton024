@@ -66,7 +66,7 @@ export default {
     },
 
     buttonTitle() {
-      return this.value ? `${this.title} - ${this.value}` : `${this.title}`;
+      return this.value ? `${this.title} - ${this.selectedText()}` : `${this.title}`;
     },
   },
 
@@ -77,6 +77,10 @@ export default {
 
     select(value) {
       this.$emit('change', value);
+    },
+
+    selectedText() {
+      return this.options.filter((option) => option.value === this.value)[0].text;
     },
   },
 };
