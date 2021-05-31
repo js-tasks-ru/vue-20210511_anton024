@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown" :class="{ show: show }" @click="click">
     <button type="button" class="button dropdown__toggle" :class="{ dropdown__toggle_icon: withIcon }">
-      <app-icon v-if="withIcon && value" :icon="selectedIcon" />
+      <app-icon v-if="withIcon && selectedIcon" :icon="selectedIcon" />
       {{ buttonTitle }}
     </button>
 
@@ -58,15 +58,26 @@ export default {
 
   computed: {
     withIcon() {
-      return this.options.map((option) => option.icon != null).filter((value) => value).length > 0;
+      return this.options.some((option) => option.icon != null);
+    },
+
+    selectedOption() {
+      const isSelected = (element) => {
+        return element.value === this.value;
+      };
+      return this.options.find(isSelected);
     },
 
     selectedIcon() {
-      return this.options.filter((option) => option.value === this.value)[0].icon;
+      return this.selectedOption ? this.selectedOption.icon : null;
+    },
+
+    selectedText() {
+      return this.selectedOption ? (this.selectedOption.text ? this.selectedOption.text : '') : '';
     },
 
     buttonTitle() {
-      return this.value ? `${this.title} - ${this.selectedText()}` : `${this.title}`;
+      return this.value ? `${this.title} - ${this.selectedText}` : `${this.title}`;
     },
   },
 
@@ -77,10 +88,6 @@ export default {
 
     select(value) {
       this.$emit('change', value);
-    },
-
-    selectedText() {
-      return this.options.filter((option) => option.value === this.value)[0].text;
     },
   },
 };
