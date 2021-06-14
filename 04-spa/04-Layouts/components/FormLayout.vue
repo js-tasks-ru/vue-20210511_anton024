@@ -1,7 +1,9 @@
 <template>
-  <div class="page">
-    <h1>{{ title }}</h1>
-    <slot></slot>
+  <div class="page page_meetup-forms">
+    <div class="container">
+      <h2 class="page__title">{{ title }}</h2>
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -18,11 +20,6 @@ export default {
 </script>
 
 <style scoped>
-.page {
-  text-align: center;
-  text-decoration: none;
-}
-
 .page.page_meetup-forms {
   padding: 70px 0;
 }

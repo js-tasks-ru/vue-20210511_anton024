@@ -1,7 +1,11 @@
 <template>
   <header class="header">
     <div>
-      <h1>Meetups</h1>
+      <h1>
+        <router-link :to="{ name: 'meetups' }">
+          <img src="../assets/images/logo.svg" alt="Meetups" />
+        </router-link>
+      </h1>
     </div>
     <nav>
       <router-link :to="{ name: 'meetups' }">Митапы</router-link>

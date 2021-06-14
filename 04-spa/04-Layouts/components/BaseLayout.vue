@@ -1,7 +1,9 @@
 <template>
   <div class="wrapper bg-grey">
     <the-header></the-header>
-    <slot></slot>
+    <main class="main">
+      <slot></slot>
+    </main>
     <the-footer></the-footer>
   </div>
 </template>
